@@ -1824,3 +1824,153 @@ body {
     .hero-cta-buttons { flex-direction: column; align-items: center; }
 }
 
+/* === NEW REGISTRATION PAGE STYLES === */
+
+.register-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr; /* Two columns */
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--white);
+}
+
+.register-branding {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  text-align: center;
+}
+
+.branding-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.branding-content h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.branding-content p {
+  font-size: 1.1rem;
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.7;
+  opacity: 0.8;
+}
+
+.register-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.register-form {
+  width: 100%;
+  max-width: 450px;
+}
+
+.register-form h3 {
+  font-size: 2rem;
+  color: var(--text-dark);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.register-form fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.register-form legend {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-light);
+  margin-bottom: 0.75rem;
+  padding: 0;
+}
+
+.user-type-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.user-type-selector label {
+  padding: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.user-type-selector label span {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+.user-type-selector input[type="radio"] {
+  display: none; /* Hide the default radio button */
+}
+
+.user-type-selector label.active {
+  border-color: var(--primary-color);
+  background-color: #f3f5ff;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.btn-primary.full-width {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+.auth-switch-alt {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: var(--text-light);
+}
+
+.auth-switch-alt .btn-link {
+  font-size: 1rem;
+  text-decoration: none;
+}
+.error-text {
+  color: var(--error-color);
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+.autofilled-input {
+  background-color: #f1f1f1;
+  cursor: not-allowed;
+}
+
+/* Responsive styles for the registration page */
+@media (max-width: 992px) {
+  .register-layout {
+    grid-template-columns: 1fr; /* Stack to a single column */
+  }
+  .register-branding {
+    display: none; /* Hide the branding column on smaller screens */
+  }
+  .register-form-container {
+    padding: 2rem 1.5rem;
+  }
+}
+
