@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { authAPI } from '../../services/api';
 
 const Register = ({ onRegister, switchToLogin }) => {
@@ -8,40 +9,68 @@ const Register = ({ onRegister, switchToLogin }) => {
     password: '',
     confirmPassword: '',
     phoneNumber: '',
-    userType: 'WORKER',
-    city: '',
-    state: '',
+    userType: 'WORKER', // Default value
     address: '',
+    pincode: '',
     preferredLanguage: 'ENGLISH'
   });
+  const [locationData, setLocationData] = useState({ city: '', state: '' });
+  const [pincodeError, setPincodeError] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // This allows selecting a user type from the URL (e.g., from the homepage buttons)
+  const location = useLocation();
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const type = params.get('type');
+    if (type === 'hirer') {
+      setFormData(prev => ({ ...prev, userType: 'HIRER' }));
+    }
+  }, [location]);
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handlePincodeChange = async (e) => {
+    const newPincode = e.target.value;
+    setFormData({ ...formData, pincode: newPincode });
+    setPincodeError('');
+    setLocationData({ city: '', state: '' });
+
+    if (newPincode.length === 6) {
+        try {
+            const response = await fetch(`https://api.postalpincode.in/pincode/${newPincode}`);
+            const data = await response.json();
+            if (data && data[0].Status === 'Success') {
+                const { District, State } = data[0].PostOffice[0];
+                setLocationData({ city: District, state: State });
+            } else {
+                setPincodeError('Invalid Pincode.');
+            }
+        } catch (error) {
+            setPincodeError('Could not fetch location.');
+        }
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
     setLoading(true);
     setError('');
 
-    // Validate passwords match
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
-      setLoading(false);
-      return;
-    }
-
     try {
       const { confirmPassword, ...registrationData } = formData;
-      const response = await authAPI.register(registrationData);
+      const finalUserData = { ...registrationData, ...locationData };
+
+      const response = await authAPI.register(finalUserData);
       const { token, ...userData } = response.data;
 
-      // Store auth data
       localStorage.setItem('workwise_token', token);
       localStorage.setItem('workwise_user', JSON.stringify(userData));
 
@@ -54,167 +83,77 @@ const Register = ({ onRegister, switchToLogin }) => {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
-        <h2>Join WorkWise</h2>
-        <p>Start your journey in India's largest labor marketplace</p>
+    <div className="register-layout">
+      <div className="register-branding">
+        <div className="branding-content">
+          <h1>🚀 WorkWise</h1>
+          <h2>Join India's Most Trusted Labor Marketplace.</h2>
+          <p>Whether you're looking for work or hiring skilled labor, you're in the right place. Create your account to get started.</p>
+        </div>
+      </div>
 
-        {error && <div className="error-message">{error}</div>}
+      <div className="register-form-container">
+        <form onSubmit={handleSubmit} className="register-form">
+          <h3>Create Your Account</h3>
 
-        <form onSubmit={handleSubmit} className="auth-form">
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="name">Full Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                placeholder="Enter your full name"
-              />
+          {error && <div className="error-message">{error}</div>}
+
+          <fieldset>
+            <legend>I am a...</legend>
+            <div className="user-type-selector">
+              <label className={formData.userType === 'WORKER' ? 'active' : ''}>
+                <input type="radio" name="userType" value="WORKER" checked={formData.userType === 'WORKER'} onChange={handleChange} />
+                👷 Worker
+                <span>I'm looking for jobs</span>
+              </label>
+              <label className={formData.userType === 'HIRER' ? 'active' : ''}>
+                <input type="radio" name="userType" value="HIRER" checked={formData.userType === 'HIRER'} onChange={handleChange} />
+                🏢 Hirer
+                <span>I want to hire talent</span>
+              </label>
             </div>
+          </fieldset>
 
-            <div className="form-group">
-              <label htmlFor="email">Email Address</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                placeholder="Enter your email"
-              />
-            </div>
+          <div className="form-group">
+            <label htmlFor="name">Full Name</label>
+            <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} placeholder="e.g., Ramesh Kumar" required />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="email">Email Address</label>
+            <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} placeholder="you@example.com" required />
           </div>
 
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                placeholder="Create a password"
-                minLength="6"
-              />
+              <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} placeholder="Minimum 6 characters" required />
             </div>
-
             <div className="form-group">
               <label htmlFor="confirmPassword">Confirm Password</label>
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-                placeholder="Confirm your password"
-                minLength="6"
-              />
+              <input type="password" id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Re-enter your password" required />
             </div>
           </div>
 
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="userType">I am a...</label>
-              <select
-                id="userType"
-                name="userType"
-                value={formData.userType}
-                onChange={handleChange}
-                required
-              >
-                <option value="WORKER">Worker - I provide services</option>
-                <option value="HIRER">Hirer - I need services</option>
-                <option value="BOTH">Both - I provide and need services</option>
-              </select>
+                <label htmlFor="pincode">PIN Code</label>
+                <input type="text" id="pincode" name="pincode" value={formData.pincode} onChange={handlePincodeChange} placeholder="6-digit Pincode" maxLength="6" required />
+                {pincodeError && <small className="error-text">{pincodeError}</small>}
             </div>
-
-            <div className="form-group">
-              <label htmlFor="phoneNumber">Phone Number</label>
-              <input
-                type="tel"
-                id="phoneNumber"
-                name="phoneNumber"
-                value={formData.phoneNumber}
-                onChange={handleChange}
-                placeholder="+91 9876543210"
-                pattern="[+]?[0-9]{10,15}"
-              />
-            </div>
-          </div>
-
-          <div className="form-row">
             <div className="form-group">
               <label htmlFor="city">City</label>
-              <input
-                type="text"
-                id="city"
-                name="city"
-                value={formData.city}
-                onChange={handleChange}
-                placeholder="Enter your city"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="state">State</label>
-              <input
-                type="text"
-                id="state"
-                name="state"
-                value={formData.state}
-                onChange={handleChange}
-                placeholder="Enter your state"
-              />
+              <input type="text" id="city" name="city" value={locationData.city} placeholder="Auto-filled" readOnly className="autofilled-input" />
             </div>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="address">Address</label>
-            <textarea
-              id="address"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              placeholder="Enter your full address"
-              rows="3"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="preferredLanguage">Preferred Language</label>
-            <select
-              id="preferredLanguage"
-              name="preferredLanguage"
-              value={formData.preferredLanguage}
-              onChange={handleChange}
-            >
-              <option value="ENGLISH">English</option>
-              <option value="HINDI">हिंदी (Hindi)</option>
-              <option value="TAMIL">தமிழ் (Tamil)</option>
-              <option value="TELUGU">తెలుగు (Telugu)</option>
-              <option value="BENGALI">বাংলা (Bengali)</option>
-              <option value="MARATHI">मराठी (Marathi)</option>
-            </select>
-          </div>
-
-          <button type="submit" disabled={loading} className="btn-primary">
+          <button type="submit" disabled={loading} className="btn-primary full-width">
             {loading ? 'Creating Account...' : 'Create Account'}
           </button>
         </form>
 
-        <div className="auth-switch">
-          <p>Already have an account?</p>
-          <button onClick={switchToLogin} className="btn-link">
-            Login here
-          </button>
+        <div className="auth-switch-alt">
+          <p>Already have an account? <button onClick={switchToLogin} className="btn-link">Login here</button></p>
         </div>
       </div>
     </div>
