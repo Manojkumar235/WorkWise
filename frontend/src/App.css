@@ -1,3 +1,43 @@
+/* === 1. THEME VARIABLES === */
+/* Light Theme (Default) */
+:root, .light-theme {
+  --primary-color: #667eea;
+  --secondary-color: #764ba2;
+
+  --background-primary: #f8f9fa;   /* Very light gray for body */
+  --surface-primary: #ffffff;     /* White for cards, inputs */
+  --surface-secondary: #f3f5ff;   /* Light blue for active items */
+  --border-color: #e0e0e0;
+
+  --text-primary: #333333;         /* Dark gray for main text */
+  --text-secondary: #666666;       /* Lighter gray for subtitles */
+  --text-on-primary: #ffffff;      /* White text on primary buttons */
+
+  --error-bg: #ffebee;
+  --error-text: #c62828;
+  --error-border: #f44336;
+}
+
+/* Dark Theme */
+body.dark-theme {
+  --primary-color: #7986cb;
+  --secondary-color: #9575cd;
+
+  --background-primary: #121212;   /* Very dark gray */
+  --surface-primary: #1e1e1e;     /* Dark gray for cards */
+  --surface-secondary: #2a2a2e;   /* Slightly lighter dark gray */
+  --border-color: #424242;
+
+  --text-primary: #e0e0e0;         /* Light gray for main text */
+  --text-secondary: #aaaaaa;       /* Dimmer light gray */
+  --text-on-primary: #ffffff;
+
+  --error-bg: #2b1212;
+  --error-text: #ff8a80;
+  --error-border: #ef5350;
+}
+
+
 /* === 1. GLOBAL STYLES & VARIABLES === */
 :root {
   --primary-color: #667eea;
