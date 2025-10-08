@@ -12,6 +12,7 @@ import JobSearchPage from './pages/Dashboard/JobSearchPage';
 import PostJobPage from './pages/Dashboard/PostJobPage';
 import ProfilePage from './pages/Dashboard/ProfilePage';
 import MyJobsPage from './pages/Dashboard/MyJobsPage';
+import AuthLayout from './components/Layout/AuthLayout';
 
 import './App.css';
 
@@ -39,22 +40,20 @@ function App() {
             <Routes>
                 {/* Public Routes */}
                 <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <LoginPage />} />
-                <Route path="/register" element={user ? <Navigate to="/dashboard" /> : <RegisterPage />} />
+
+                {/* Authentication Routes with the new Layout */}
+                <Route element={<AuthLayout />}>
+                    <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <LoginPage />} />
+                    <Route path="/register" element={user ? <Navigate to="/dashboard" /> : <RegisterPage />} />
+                </Route>
 
                 {/* Protected Dashboard Routes */}
                 <Route element={<ProtectedRoute />}>
                     <Route path="/dashboard" element={<DashboardLayout />}>
-                        <Route index element={<Navigate to="home" replace />} />
-                        <Route path="home" element={<DashboardHome />} />
-                        <Route path="find-jobs" element={<JobSearchPage />} />
-                        <Route path="post-job" element={<PostJobPage />} />
-                        <Route path="my-jobs" element={<MyJobsPage />} />
-                        <Route path="profile" element={<ProfilePage />} />
+                        {/* ... your nested dashboard routes */}
                     </Route>
                 </Route>
 
-                 {/* Fallback Route */}
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
         </Router>
