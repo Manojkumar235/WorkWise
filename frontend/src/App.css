@@ -2239,3 +2239,12 @@ body {
   }
 }
 
+.language-selector {
+  margin-right: 1rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: var(--white);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
