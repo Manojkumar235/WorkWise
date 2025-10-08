@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
+import { useTheme } from '../../context/ThemeContext';
 
 const Navbar = () => {
     const { user, logout } = useAuth();
     const { language, setLanguage, translations } = useLanguage();
+    const { theme, toggleTheme } = useTheme();
     const [isMenuOpen, setMenuOpen] = useState(false);
 
     const loggedOutLinks = (
@@ -35,6 +37,9 @@ const Navbar = () => {
             <div className="navbar-container">
                 <Link to="/" className="navbar-brand">🚀 WorkWise</Link>
                 <div className="navbar-auth">
+                <button onClick={toggleTheme} className="theme-toggle">
+                    {theme === 'light' ? '🌙' : '☀️'}
+                </button>
                     <select onChange={(e) => setLanguage(e.target.value)} value={language} className="language-selector">
                         <option value="en">English</option>
                         <option value="hi">हिन्दी</option>
