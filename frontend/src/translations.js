@@ -8,7 +8,7 @@ export const translations = {
     myProfile: 'My Profile',
     logout: 'Logout',
     // Home Page
-    heroTitle: 'Your Next Opportunity is Around the Corner.',
+    heroTitle: 'Connecting Talent with Opportunity.',
     heroSubtitle: 'The smartest way to find local jobs and hire skilled workers in India.',
     getStarted: 'Get Started',
     howItWorks: 'How WorkWise Works',
@@ -40,7 +40,7 @@ export const translations = {
     myProfile: 'मेरी प्रोफ़ाइल',
     logout: 'लॉग आउट',
     // Home Page
-    heroTitle: 'आपका अगला अवसर बस आने ही वाला है।',
+    heroTitle: 'प्रतिभा को अवसर से जोड़ते हुए।',
     heroSubtitle: 'भारत में स्थानीय नौकरियां खोजने और कुशल श्रमिकों को काम पर रखने का सबसे स्मार्ट तरीका।',
     getStarted: 'शुरू हो जाओ',
     howItWorks: 'WorkWise कैसे काम करता है',
@@ -72,7 +72,7 @@ export const translations = {
     myProfile: 'ನನ್ನ ಪ್ರೊಫೈಲ್',
     logout: 'ಲಾಗ್ ಔಟ್',
     // Home Page
-    heroTitle: 'ನಿಮ್ಮ ಮುಂದಿನ ಅವಕಾಶ ಮೂಲೆಯಲ್ಲಿದೆ.',
+    heroTitle: 'ಪ್ರತಿಭೆ ಮತ್ತು ಅವಕಾಶಗಳ ಸಮಾಗಮ.',
     heroSubtitle: 'ಭಾರತದಲ್ಲಿ ಸ್ಥಳೀಯ ಉದ್ಯೋಗಗಳನ್ನು ಹುಡುಕಲು ಮತ್ತು ನುರಿತ ಕೆಲಸಗಾರರನ್ನು ನೇಮಿಸಿಕೊಳ್ಳಲು ಸ್ಮಾರ್ಟೆಸ್ಟ್ ಮಾರ್ಗ.',
     getStarted: 'ಪ್ರಾರಂಭಿಸಿ',
     howItWorks: 'WorkWise ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ',
