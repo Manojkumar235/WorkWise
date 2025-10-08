@@ -7,7 +7,8 @@ const Navbar = () => {
     const { user, logout } = useAuth();
     const { language, setLanguage, translations } = useLanguage(); // Get language context
     const [isMenuOpen, setMenuOpen] = useState(false);
-     const handleLanguageChange = (e) => {
+
+    const handleLanguageChange = (e) => {
             setLanguage(e.target.value);
         };
 
