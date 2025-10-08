@@ -13,11 +13,10 @@ const HomePage = () => {
         <div className="landing-page">
             <Navbar />
 
-            {/* Hero Section */}
             <header className="hero-section">
                 <div className="hero-content">
-                     <h1 className="hero-title">{translations.heroTitle}</h1>
-                     <p className="hero-subtitle">{translations.heroSubtitle}</p>
+                    <h1 className="hero-title">{translations.heroTitle}</h1>
+                    <p className="hero-subtitle">{translations.heroSubtitle}</p>
                     <div className="hero-search-box">
                         <input type="text" placeholder="e.g., 'Construction', 'Farming', 'Cleaning'" />
                         <button onClick={() => navigate('/register')} className="hero-search-button">{translations.getStarted}</button>
@@ -26,38 +25,36 @@ const HomePage = () => {
             </header>
 
             <main>
-                {/* How It Works Section */}
                 <section className="how-it-works-section">
-                    <h2 className="section-title">How WorkWise Works</h2>
+                    <h2 className="section-title">{translations.howItWorks}</h2>
                     <div className="toggle-buttons">
-                        <button onClick={() => setView('worker')} className={view === 'worker' ? 'active' : ''}>For Workers 👷</button>
-                        <button onClick={() => setView('hirer')} className={view === 'hirer' ? 'active' : ''}>For Hirers 🏢</button>
+                        <button onClick={() => setView('worker')} className={view === 'worker' ? 'active' : ''}>{translations.forWorkers}</button>
+                        <button onClick={() => setView('hirer')} className={view === 'hirer' ? 'active' : ''}>{translations.forHirers}</button>
                     </div>
                     <div className="steps-container">
                         {view === 'worker' ? (
                             <>
-                                <div className="step-card"><span>1</span><h3>Create Profile</h3><p>Showcase your skills and experience in minutes.</p></div>
-                                <div className="step-card"><span>2</span><h3>Find Local Jobs</h3><p>Get matched with jobs near you based on your skills.</p></div>
-                                <div className="step-card"><span>3</span><h3>Get Hired</h3><p>Connect with hirers and start your next job.</p></div>
+                                <div className="step-card"><span>1</span><h3>{translations.step1Worker}</h3><p>{translations.step1WorkerDesc}</p></div>
+                                <div className="step-card"><span>2</span><h3>{translations.step2Worker}</h3><p>{translations.step2WorkerDesc}</p></div>
+                                <div className="step-card"><span>3</span><h3>{translations.step3Worker}</h3><p>{translations.step3WorkerDesc}</p></div>
                             </>
                         ) : (
                             <>
-                                <div className="step-card"><span>1</span><h3>Post a Job</h3><p>Describe your needs, location, and budget.</p></div>
-                                <div className="step-card"><span>2</span><h3>Find Workers</h3><p>Browse profiles or let our AI match you with talent.</p></div>
-                                <div className="step-card"><span>3</span><h3>Hire with Confidence</h3><p>Choose the best worker based on skills and reviews.</p></div>
+                                <div className="step-card"><span>1</span><h3>{translations.step1Hirer}</h3><p>{translations.step1HirerDesc}</p></div>
+                                <div className="step-card"><span>2</span><h3>{translations.step2Hirer}</h3><p>{translations.step2HirerDesc}</p></div>
+                                <div className="step-card"><span>3</span><h3>{translations.step3Hirer}</h3><p>{translations.step3HirerDesc}</p></div>
                             </>
                         )}
                     </div>
                 </section>
 
-                {/* Final CTA Section */}
                 <section className="cta-section">
                     <div className="cta-content">
-                        <h2>Ready to Get Started?</h2>
-                        <p>Join thousands of users finding success on WorkWise today.</p>
+                        <h2>{translations.ctaTitle}</h2>
+                        <p>{translations.ctaSubtitle}</p>
                         <div className="cta-buttons">
-                            <Link to="/register?type=worker" className="btn-primary-large">Find Work Now</Link>
-                            <Link to="/register?type=hirer" className="btn-secondary-large">Hire Talent Today</Link>
+                            <Link to="/register?type=worker" className="btn-primary-large">{translations.ctaWorker}</Link>
+                            <Link to="/register?type=hirer" className="btn-secondary-large">{translations.ctaHirer}</Link>
                         </div>
                     </div>
                 </section>
