@@ -5,51 +5,41 @@ import { useLanguage } from '../../context/LanguageContext';
 
 const Navbar = () => {
     const { user, logout } = useAuth();
-    const { language, setLanguage, translations } = useLanguage(); // Get language context
+    const { language, setLanguage, translations } = useLanguage();
     const [isMenuOpen, setMenuOpen] = useState(false);
-
-    const handleLanguageChange = (e) => {
-            setLanguage(e.target.value);
-        };
 
     const loggedOutLinks = (
         <>
-            <NavLink to="/login" className="nav-link">Login</NavLink>
-            <Link to="/register" className="nav-button-primary">Register</Link>
+            <NavLink to="/login" className="nav-link">{translations.login}</NavLink>
+            <Link to="/register" className="nav-button-primary">{translations.register}</Link>
         </>
     );
 
     const loggedInLinks = (
         <div className="profile-menu">
             <button onClick={() => setMenuOpen(!isMenuOpen)} className="profile-button">
-                Hi, {user?.name.split(' ')[0]}
+                {translations.hiUser} {user?.name.split(' ')[0]}
             </button>
             {isMenuOpen && (
                 <div className="profile-dropdown">
-                    <NavLink to="/dashboard/home" onClick={() => setMenuOpen(false)}>Dashboard</NavLink>
-                    <NavLink to="/dashboard/profile" onClick={() => setMenuOpen(false)}>My Profile</NavLink>
-                    <button onClick={() => { logout(); setMenuOpen(false); }}>Logout</button>
+                    <NavLink to="/dashboard" onClick={() => setMenuOpen(false)}>{translations.dashboard}</NavLink>
+                    <NavLink to="/dashboard/profile" onClick={() => setMenuOpen(false)}>{translations.myProfile}</NavLink>
+                    <button onClick={() => { logout(); setMenuOpen(false); }}>{translations.logout}</button>
                 </div>
             )}
         </div>
     );
 
     return (
-        <nav className="navbar modern-nav">
+        <nav className="navbar">
             <div className="navbar-container">
                 <Link to="/" className="navbar-brand">🚀 WorkWise</Link>
-                <div className="navbar-links">
-                    {user && <NavLink to="/dashboard/find-jobs" className="nav-link">Find Jobs</NavLink>}
-                    {user && (user.userType === 'HIRER' || user.userType === 'BOTH') && (
-                         <NavLink to="/dashboard/post-job" className="nav-link">Post a Job</NavLink>
-                    )}
-                </div>
                 <div className="navbar-auth">
-                <select onChange={handleLanguageChange} value={language} className="language-selector">
-                                        <option value="en">English</option>
-                                        <option value="hi">हिन्दी (Hindi)</option>
-                                        <option value="kn">ಕನ್ನಡ (Kannada)</option>
-                                    </select>
+                    <select onChange={(e) => setLanguage(e.target.value)} value={language} className="language-selector">
+                        <option value="en">English</option>
+                        <option value="hi">हिन्दी</option>
+                        <option value="kn">ಕನ್ನಡ</option>
+                    </select>
                     {user ? loggedInLinks : loggedOutLinks}
                 </div>
             </div>
