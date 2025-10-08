@@ -7,6 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class WorkwiseApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WorkwiseApplication.class, args);
-		System.out.println(" WorkWise Backend Application Started Successfully!");
+		System.out.println(" WorkWise Application Started Successfully!");
 	}
 }
