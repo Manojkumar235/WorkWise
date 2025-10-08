@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Layout/Navbar';
 import Footer from '../components/Layout/Footer';
+import { useLanguage } from '../context/LanguageContext';
 
 const HomePage = () => {
     const navigate = useNavigate();
+    const { translations } = useLanguage();
     const [view, setView] = useState('worker'); // 'worker' or 'hirer'
 
     return (
@@ -14,11 +16,11 @@ const HomePage = () => {
             {/* Hero Section */}
             <header className="hero-section">
                 <div className="hero-content">
-                    <h1 className="hero-title">Your Next Opportunity is Around the Corner.</h1>
-                    <p className="hero-subtitle">The smartest way to find local jobs and hire skilled workers in India.</p>
+                     <h1 className="hero-title">{translations.heroTitle}</h1>
+                     <p className="hero-subtitle">{translations.heroSubtitle}</p>
                     <div className="hero-search-box">
                         <input type="text" placeholder="e.g., 'Construction', 'Farming', 'Cleaning'" />
-                        <button onClick={() => navigate('/register')} className="hero-search-button">Get Started</button>
+                        <button onClick={() => navigate('/register')} className="hero-search-button">{translations.getStarted}</button>
                     </div>
                 </div>
             </header>
