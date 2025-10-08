@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 const Navbar = () => {
     const { user, logout } = useAuth();
+    const { language, setLanguage, translations } = useLanguage(); // Get language context
     const [isMenuOpen, setMenuOpen] = useState(false);
+     const handleLanguageChange = (e) => {
+            setLanguage(e.target.value);
+        };
 
     const loggedOutLinks = (
         <>
@@ -39,6 +44,11 @@ const Navbar = () => {
                     )}
                 </div>
                 <div className="navbar-auth">
+                <select onChange={handleLanguageChange} value={language} className="language-selector">
+                                        <option value="en">English</option>
+                                        <option value="hi">हिन्दी (Hindi)</option>
+                                        <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                                    </select>
                     {user ? loggedInLinks : loggedOutLinks}
                 </div>
             </div>
