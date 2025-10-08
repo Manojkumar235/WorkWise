@@ -2182,3 +2182,60 @@ body {
   text-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
+/* === RESPONSIVE LOGIN CARD STYLES === */
+.login-card {
+  background: var(--white);
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
+.login-card h3 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.login-card p {
+  text-align: center;
+  color: var(--text-light);
+  margin-bottom: 2rem;
+}
+
+.auth-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+
+@media (max-width: 992px) {
+  .auth-container {
+    max-width: 100%; /* Allow it to shrink */
+  }
+
+  .register-layout {
+    grid-template-columns: 1fr;
+    min-height: auto; /* Remove fixed height */
+  }
+
+  .register-branding {
+    display: none;
+  }
+
+  .register-form-container {
+    padding: 2rem 1.5rem;
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  }
+}
+
+/* On very small screens */
+@media (max-width: 480px) {
+  .auth-layout {
+    padding: 1rem;
+  }
+  .login-card, .register-form-container {
+    padding: 2rem 1.5rem;
+  }
+}
+
