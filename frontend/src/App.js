@@ -8,10 +8,10 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardLayout from './pages/Dashboard/DashboardLayout';
 import DashboardHome from './pages/Dashboard/DashboardHome';
-import JobSearchPage from './pages/Dashboard/JobSearchPage';
-import PostJobPage from './pages/Dashboard/PostJobPage';
-import ProfilePage from './pages/Dashboard/ProfilePage';
-import MyJobsPage from './pages/Dashboard/MyJobsPage';
+//import JobSearchPage from './pages/Dashboard/JobSearchPage';
+//import PostJobPage from './pages/Dashboard/PostJobPage';
+//import ProfilePage from './pages/Dashboard/ProfilePage';
+//import MyJobsPage from './pages/Dashboard/MyJobsPage';
 import AuthLayout from './components/Layout/AuthLayout';
 
 import './App.css';
@@ -50,7 +50,8 @@ function App() {
                 {/* Protected Dashboard Routes */}
                 <Route element={<ProtectedRoute />}>
                     <Route path="/dashboard" element={<DashboardLayout />}>
-                        {/* ... your nested dashboard routes */}
+                         <Route index element={<Navigate to="home" replace />} />
+                         <Route path="home" element={<DashboardHome />} />
                     </Route>
                 </Route>
 
