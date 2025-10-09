@@ -152,10 +152,9 @@ body {
   /* Styles for the copyright text at the bottom */
   opacity: 0.7;
 }
-
 /* === AUTH LAYOUT & PAGES STYLES === */
 
-/* This creates the background visibility from the homepage hero */
+/* This creates the full-screen background using the hero image */
 .auth-layout {
   min-height: 100vh;
   width: 100%;
@@ -168,7 +167,7 @@ body {
   background-position: center;
 }
 
-/* This is the main container for the card */
+/* This container holds the card and the brand name above it */
 .auth-container {
   width: 100%;
   max-width: 500px;
@@ -187,7 +186,7 @@ body {
   text-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-/* A new shared class for both Login and Register cards */
+/* A new, shared class for both Login and Register cards */
 .auth-form-card {
   background: var(--surface-primary);
   padding: 2.5rem;
@@ -208,7 +207,7 @@ body {
   margin-bottom: 2rem;
 }
 
-/* Styles for the form inside the card */
+/* Styles for the form elements inside the card */
 .auth-form {
   display: flex;
   flex-direction: column;
