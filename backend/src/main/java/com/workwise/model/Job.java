@@ -12,6 +12,7 @@ import lombok.ToString;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.time.LocalDateTime;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "jobs")
@@ -43,7 +44,7 @@ public class Job {
 
     // Pricing Information
     @Column(name = "offered_price", precision = 10, scale = 2)
-    private Double offeredPrice;
+    private BigDecimal offeredPrice;
 
     @Column(name = "price_currency", length = 3)
     private String priceCurrency = "INR";
@@ -68,11 +69,11 @@ public class Job {
     // Location (Required for hyperlocal matching)
     @NotNull(message = "Latitude is required for location-based matching")
     @Column(nullable = false, precision = 10, scale = 8)
-    private Double latitude;
+    private BigDecimal latitude;
 
     @NotNull(message = "Longitude is required for location-based matching")
     @Column(nullable = false, precision = 11, scale = 8)
-    private Double longitude;
+    private BigDecimal longitude;
 
     @Column(length = 500)
     private String address;
@@ -108,7 +109,7 @@ public class Job {
     private String cropType;
 
     @Column(name = "area_size", precision = 8, scale = 2)
-    private Double areaSize;
+    private BigDecimal areaSize;
 
     @Column(name = "weather_dependency")
     private Boolean weatherDependency = false;

@@ -2,12 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 
-// Import Pages
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import DashboardLayout from './pages/Dashboard/DashboardLayout';
-import DashboardHome from './pages/Dashboard/DashboardHome';
+// Import Pages (use correct casing for paths)
+import HomePage from './Pages/HomePage';
+import LoginPage from './Pages/LoginPage';
+import RegisterPage from './Pages/RegisterPage';
+import DashboardLayout from './Pages/Dashboard/DashboardLayout';
+import DashboardHome from './Pages/Dashboard/DashboardHome';
 //import JobSearchPage from './pages/Dashboard/JobSearchPage';
 //import PostJobPage from './pages/Dashboard/PostJobPage';
 //import ProfilePage from './pages/Dashboard/ProfilePage';
