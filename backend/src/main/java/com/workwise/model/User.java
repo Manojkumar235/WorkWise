@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,10 +56,10 @@ public class User {
 
     // Location Information
     @Column(precision = 10, scale = 8)
-    private Double latitude;
+    private BigDecimal latitude;
 
     @Column(precision = 11, scale = 8)
-    private Double longitude;
+    private BigDecimal longitude;
 
     @Column(length = 500)
     private String address;
@@ -74,7 +75,7 @@ public class User {
 
     // Trust and Verification
     @Column(name = "trust_score", precision = 3, scale = 2)
-    private Double trustScore = 0.0;
+    private BigDecimal trustScore = BigDecimal.ZERO;
 
     @Column(name = "is_verified")
     private Boolean isVerified = false;
@@ -170,11 +171,11 @@ public class User {
     public String getPreferredLanguage() { return preferredLanguage; }
     public void setPreferredLanguage(String preferredLanguage) { this.preferredLanguage = preferredLanguage; }
 
-    public Double getLatitude() { return latitude; }
-    public void setLatitude(Double latitude) { this.latitude = latitude; }
+    public BigDecimal getLatitude() { return latitude; }
+    public void setLatitude(BigDecimal latitude) { this.latitude = latitude; }
 
-    public Double getLongitude() { return longitude; }
-    public void setLongitude(Double longitude) { this.longitude = longitude; }
+    public BigDecimal getLongitude() { return longitude; }
+    public void setLongitude(BigDecimal longitude) { this.longitude = longitude; }
 
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
@@ -194,8 +195,8 @@ public class User {
     public Boolean getAvailabilityStatus() { return availabilityStatus; }
     public void setAvailabilityStatus(Boolean availabilityStatus) { this.availabilityStatus = availabilityStatus; }
 
-    public Double getTrustScore() { return trustScore; }
-    public void setTrustScore(Double trustScore) { this.trustScore = trustScore; }
+    public BigDecimal getTrustScore() { return trustScore; }
+    public void setTrustScore(BigDecimal trustScore) { this.trustScore = trustScore; }
 
     public Boolean getIsVerified() { return isVerified; }
     public void setIsVerified(Boolean isVerified) { this.isVerified = isVerified; }
