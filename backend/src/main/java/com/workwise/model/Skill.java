@@ -11,6 +11,7 @@ import lombok.ToString;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.time.LocalDateTime;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "skills")
@@ -39,17 +40,17 @@ public class Skill {
     @Min(value = 0, message = "Rating cannot be negative")
     @Max(value = 5, message = "Rating cannot be more than 5")
     @Column(precision = 3, scale = 2)
-    private Double rating = 0.0;
+    private BigDecimal rating = BigDecimal.ZERO;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
     // Pricing Information
     @Column(name = "min_hourly_rate", precision = 10, scale = 2)
-    private Double minHourlyRate;
+    private BigDecimal minHourlyRate;
 
     @Column(name = "max_hourly_rate", precision = 10, scale = 2)
-    private Double maxHourlyRate;
+    private BigDecimal maxHourlyRate;
 
     @Column(name = "rate_currency", length = 3)
     private String rateCurrency = "INR";
