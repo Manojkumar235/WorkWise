@@ -30,7 +30,8 @@ const Login = ({ onLogin, switchToRegister }) => {
   };
 
   return (
-    <div className="login-card">
+    /* CHANGED: user 'auth-form-card' to match App.css and Register.js */
+    <div className="auth-form-card">
         <h3>{translations.loginTitle}</h3>
         <p>{translations.loginSubtitle}</p>
 

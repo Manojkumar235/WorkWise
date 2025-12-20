@@ -152,36 +152,243 @@ body {
   /* Styles for the copyright text at the bottom */
   opacity: 0.7;
 }
-/* === 5. AUTH LAYOUT & PAGES (LOGIN/REGISTER) === */
+
+
+/* ========================================= */
+/* === NEW AUTH LAYOUT & CARD VIEW STYLES === */
+/* ========================================= */
+
+/* 1. Layout Container - Full Screen with Background */
 .auth-layout {
-  min-height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 2rem;
+  /* Uses the same gradient/image as Hero Section for consistency */
   background-image: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%), url('https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2070');
-  background-size: cover; background-position: center;
+  background-size: cover;
+  background-position: center;
 }
-.auth-container { width: 100%; max-width: 500px; }
-.auth-header { text-align: center; margin-bottom: 2rem; }
-.auth-brand { font-size: 2.5rem; font-weight: 700; color: var(--white); text-decoration: none; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
 
+.auth-container {
+  width: 100%;
+  max-width: 500px;
+  /* Animation for smooth entry */
+  animation: slideUp 0.5s ease-out;
+}
+
+/* 2. Header & Brand */
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-brand {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--white);
+  text-decoration: none;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.auth-brand:hover {
+  transform: scale(1.05);
+}
+
+/* 3. The Card Component */
 .auth-form-card {
-  background: var(--surface-primary); padding: 2.5rem; border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  background: var(--surface-primary);
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  width: 100%;
 }
-.auth-form-card h3 { color: var(--text-primary); font-size: 2rem; text-align: center; margin-bottom: 0.75rem; }
-.auth-form-card p { color: var(--text-secondary); text-align: center; margin-bottom: 2rem; }
 
-.auth-form fieldset { border: none; padding: 0; margin: 0 0 1.5rem 0; }
-.auth-form legend { font-size: 1rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.75rem; }
-.user-type-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.auth-form-card h3 {
+  color: var(--text-primary);
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.auth-form-card p {
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+/* 4. Form Elements & Inputs */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: var(--surface-secondary);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.form-group input:focus {
+  border-color: var(--primary-color);
+  background-color: var(--surface-primary);
+  outline: none;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary-color) 10%, transparent);
+}
+
+/* Two inputs in one row (used in Register) */
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+/* 5. Buttons & Links */
+.btn-primary.full-width {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 14px;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.auth-switch-alt {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0 4px;
+  font-size: inherit;
+  transition: color 0.2s;
+}
+
+.btn-link:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+/* 6. User Type Selector (Worker/Hirer) */
+.auth-form fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.auth-form legend {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.user-type-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
 .user-type-selector label {
-  padding: 1rem; border: 2px solid var(--border-color); border-radius: 8px;
-  cursor: pointer; transition: all 0.2s ease-in-out; text-align: center; font-weight: 600; color: var(--text-primary);
+  padding: 12px;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--surface-primary);
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
 }
-.user-type-selector input[type="radio"] { display: none; }
-.user-type-selector label.active { border-color: var(--primary-color); background-color: var(--surface-secondary); }
-.user-type-selector label span { display: block; font-size: 0.85rem; font-weight: 400; color: var(--text-secondary); margin-top: 4px; }
 
-.btn-primary.full-width { width: 100%; padding: 15px; font-size: 1.1rem; margin-top: 1rem; }
-.auth-switch-alt { color: var(--text-secondary); text-align: center; margin-top: 1.5rem; }
-.error-text { color: var(--error-border-color); font-size: 0.85rem; margin-top: 4px; }
-.autofilled-input { background-color: var(--surface-secondary); cursor: not-allowed; color: var(--text-secondary); }
+.user-type-selector label:hover {
+  border-color: var(--primary-color);
+  background: var(--surface-secondary);
+}
+
+.user-type-selector label.active {
+  border-color: var(--primary-color);
+  background-color: color-mix(in srgb, var(--primary-color) 10%, transparent);
+  color: var(--primary-color);
+}
+
+.user-type-selector input[type="radio"] {
+  display: none;
+}
+
+/* 7. Utility & Error States */
+.error-message {
+  background-color: #fee2e2;
+  color: #dc2626;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+  border: 1px solid #fecaca;
+}
+
+.error-text {
+  color: #dc2626;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  display: block;
+}
+
+.autofilled-input {
+  background-color: var(--surface-secondary);
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Animation Keyframes */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 576px) {
+  .auth-form-card {
+    padding: 1.5rem;
+  }
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}

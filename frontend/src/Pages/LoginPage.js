@@ -7,18 +7,16 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const { login } = useAuth();
 
-    const handleLoginSuccess = (userData) => {
-        // The token is already stored in localStorage by the api service
-        // We just need to update the auth context and redirect
-        const fullUserData = { ...userData, token: localStorage.getItem('workwise_token') };
-        login(fullUserData);
+    const handleAuthSuccess = (data) => {
+        // 'data' contains { token, name, email, userType, userId } from backend
+        login(data); // AuthContext handles the storage
         navigate('/dashboard');
     };
 
     return (
         <div className="auth-page">
             {/* The Login component is existing form from src/components/Auth/Login.js */}
-            <Login onLogin={handleLoginSuccess} switchToRegister={() => navigate('/register')} />
+            <Login onLogin={handleAuthSuccess} switchToRegister={() => navigate('/register')} />
         </div>
     );
 };

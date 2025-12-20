@@ -1,6 +1,5 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom'; // Combined imports
 
 const AuthLayout = () => {
     return (
