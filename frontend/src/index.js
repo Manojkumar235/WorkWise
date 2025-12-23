@@ -6,16 +6,22 @@ import App from './App';
 import { AuthProvider } from './context/AuthContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { ToastProvider } from './context/ToastContext';
+import ErrorBoundary from './shared/components/ErrorBoundary';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AuthProvider>
+    <ErrorBoundary>
+      <AuthProvider>
         <LanguageProvider>
-        <ThemeProvider>
-             <App />
-         </ThemeProvider>
+          <ThemeProvider>
+            <ToastProvider>
+              <App />
+            </ToastProvider>
+          </ThemeProvider>
         </LanguageProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </ErrorBoundary>
   </React.StrictMode>
 );

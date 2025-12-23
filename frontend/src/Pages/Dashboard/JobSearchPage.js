@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import JobSearch from '../../components/Jobs/JobSearch';
-import JobDetailModal from '../../components/Jobs/JobDetailModal';
+import JobSearch from '../../features/jobs/components/JobSearch';
+import JobDetailModal from '../../features/jobs/components/JobDetailModal';
 
 const JobSearchPage = () => {
     const [selectedJobId, setSelectedJobId] = useState(null);

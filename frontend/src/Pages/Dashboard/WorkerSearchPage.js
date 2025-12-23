@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import WorkerSearch from '../../components/Workers/WorkerSearch';
+import React from 'react';
+import { useToast } from '../../context/ToastContext';
+import WorkerSearch from '../../features/workers/components/WorkerSearch';
 
 const WorkerSearchPage = () => {
-    const navigate = useNavigate();
-    const [selectedWorker, setSelectedWorker] = useState(null);
+    const toast = useToast();
 
     const handleWorkerSelect = (worker) => {
-        // Navigate to worker profile or show details
-        // For now, we can show an alert or navigate to a profile page
-        console.log("Selected Worker:", worker);
-        // TODO: Create worker profile page or modal
-        alert(`Viewing profile of ${worker.name}`);
+        // TODO: Navigate to worker profile when implemented
+        toast.info(`Worker profile for ${worker.name} - Coming soon!`);
     };
 
     return (

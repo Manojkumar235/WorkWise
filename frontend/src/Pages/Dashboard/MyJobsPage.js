@@ -1,35 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { enhancedJobAPI } from '../../services/api';
-import JobDetailModal from '../../components/Jobs/JobDetailModal';
-import RatingModal from '../../components/Rating/RatingModal';
+import { useToast } from '../../context/ToastContext';
+import { enhancedJobAPI } from '../../features/jobs/services/jobService';
+import JobDetailModal from '../../features/jobs/components/JobDetailModal';
+import RatingModal from '../../features/ratings/components/RatingModal';
+import LoadingSpinner from '../../shared/components/LoadingSpinner';
+import ErrorMessage from '../../shared/components/ErrorMessage';
+import EmptyState from '../../shared/components/EmptyState';
 
 const MyJobsPage = () => {
     const [postedJobs, setPostedJobs] = useState([]);
     const [assignedJobs, setAssignedJobs] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
-    const [activeTab, setActiveTab] = useState('posted'); // 'posted' or 'assigned'
-    const [statusFilter, setStatusFilter] = useState('all'); // 'all', 'POSTED', 'IN_PROGRESS', 'COMPLETED', etc.
+    const [error, setError] = useState(null);
+    const [activeTab, setActiveTab] = useState('posted');
+    const [statusFilter, setStatusFilter] = useState('all');
     const [selectedJobId, setSelectedJobId] = useState(null);
     const [showRatingModal, setShowRatingModal] = useState(false);
     const [jobToRate, setJobToRate] = useState(null);
+    const [updatingJobId, setUpdatingJobId] = useState(null);
     const { user } = useAuth();
     const navigate = useNavigate();
+    const toast = useToast();
 
     const isHirer = user && (user.userType === 'HIRER' || user.userType === 'BOTH');
     const isWorker = user && (user.userType === 'WORKER' || user.userType === 'BOTH');
 
-    useEffect(() => {
-        fetchJobs();
-    }, [user]);
-
-    const fetchJobs = async () => {
+    const fetchJobs = useCallback(async () => {
         if (!user) return;
 
         setLoading(true);
-        setError('');
+        setError(null);
 
         try {
             if (isHirer) {
@@ -42,19 +44,33 @@ const MyJobsPage = () => {
                 setAssignedJobs(Array.isArray(response.data) ? response.data : []);
             }
         } catch (err) {
-            setError('Failed to fetch your jobs. Please try again.');
-            console.error("Error fetching user's jobs:", err);
+            setError(err);
+            if (!err.isNetworkError) {
+                toast.error('Failed to fetch your jobs');
+            }
         } finally {
             setLoading(false);
         }
-    };
+    }, [user, isHirer, isWorker, toast]);
+
+    useEffect(() => {
+        fetchJobs();
+    }, [fetchJobs]);
 
     const handleStatusUpdate = async (jobId, newStatus) => {
+        setUpdatingJobId(jobId);
         try {
             await enhancedJobAPI.updateStatus(jobId, newStatus);
+            toast.success('Job status updated successfully');
             fetchJobs();
         } catch (err) {
-            alert(err.response?.data?.error || 'Failed to update job status');
+            if (err.isNetworkError) {
+                toast.error('No internet connection. Please try again.');
+            } else {
+                toast.error(err.response?.data?.error || 'Failed to update job status');
+            }
+        } finally {
+            setUpdatingJobId(null);
         }
     };
 
@@ -127,10 +143,7 @@ const MyJobsPage = () => {
     if (loading) {
         return (
             <div className="dashboard-page">
-                <div className="loading-screen">
-                    <div className="loading-spinner"></div>
-                    <p>Loading your jobs...</p>
-                </div>
+                <LoadingSpinner size="large" text="Loading your jobs..." />
             </div>
         );
     }
@@ -138,10 +151,7 @@ const MyJobsPage = () => {
     if (error) {
         return (
             <div className="dashboard-page">
-                <div className="error-state">
-                    <h2>{error}</h2>
-                    <button className="btn-primary" onClick={fetchJobs}>Try Again</button>
-                </div>
+                <ErrorMessage error={error} onRetry={fetchJobs} type="fullpage" />
             </div>
         );
     }
@@ -202,31 +212,23 @@ const MyJobsPage = () => {
 
                 {/* Jobs List */}
                 {filteredJobs.length === 0 ? (
-                    <div className="empty-state">
-                        <div className="empty-state-icon">📋</div>
-                        <h3>No Jobs Found</h3>
-                        <p>
-                            {activeTab === 'posted'
+                    <EmptyState
+                        icon="📋"
+                        title="No Jobs Found"
+                        message={
+                            activeTab === 'posted'
                                 ? "You haven't posted any jobs yet. Post your first job to get started!"
-                                : "You don't have any assigned jobs yet. Browse available jobs to apply."}
-                        </p>
-                        {activeTab === 'posted' && isHirer && (
-                            <button
-                                className="btn-primary"
-                                onClick={() => navigate('/dashboard/post-job')}
-                            >
-                                Post a Job
-                            </button>
-                        )}
-                        {activeTab === 'assigned' && isWorker && (
-                            <button
-                                className="btn-primary"
-                                onClick={() => navigate('/dashboard/find-jobs')}
-                            >
-                                Find Jobs
-                            </button>
-                        )}
-                    </div>
+                                : "You don't have any assigned jobs yet. Browse available jobs to apply."
+                        }
+                        actionText={activeTab === 'posted' && isHirer ? 'Post a Job' : activeTab === 'assigned' && isWorker ? 'Find Jobs' : ''}
+                        onAction={
+                            activeTab === 'posted' && isHirer
+                                ? () => navigate('/dashboard/post-job')
+                                : activeTab === 'assigned' && isWorker
+                                ? () => navigate('/dashboard/find-jobs')
+                                : undefined
+                        }
+                    />
                 ) : (
                     <div className="my-jobs-grid">
                         {filteredJobs.map(job => (
@@ -298,24 +300,27 @@ const MyJobsPage = () => {
                                                 <button
                                                     className="btn-secondary-small"
                                                     onClick={() => handleStatusUpdate(job.id, 'CANCELLED')}
+                                                    disabled={updatingJobId === job.id}
                                                 >
-                                                    Cancel
+                                                    {updatingJobId === job.id ? 'Updating...' : 'Cancel'}
                                                 </button>
                                             )}
                                             {job.status === 'WORKER_ASSIGNED' && (
                                                 <button
                                                     className="btn-primary-small"
                                                     onClick={() => handleStatusUpdate(job.id, 'IN_PROGRESS')}
+                                                    disabled={updatingJobId === job.id}
                                                 >
-                                                    Start Work
+                                                    {updatingJobId === job.id ? 'Starting...' : 'Start Work'}
                                                 </button>
                                             )}
                                             {job.status === 'IN_PROGRESS' && (
                                                 <button
                                                     className="btn-primary-small"
                                                     onClick={() => handleStatusUpdate(job.id, 'COMPLETED')}
+                                                    disabled={updatingJobId === job.id}
                                                 >
-                                                    Mark Complete
+                                                    {updatingJobId === job.id ? 'Updating...' : 'Mark Complete'}
                                                 </button>
                                             )}
                                             {job.status === 'COMPLETED' && job.assignedWorker && (

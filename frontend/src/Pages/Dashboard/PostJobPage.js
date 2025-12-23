@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import PostJob from '../../components/Jobs/PostJob';
+import PostJob from '../../features/jobs/components/PostJob';
 
 const PostJobPage = () => {
     const navigate = useNavigate();

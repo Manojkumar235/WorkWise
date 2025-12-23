@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { userAPI } from '../../services/api';
-import SkillsManager from '../../components/Profile/SkillsManager';
+import { useToast } from '../../context/ToastContext';
+import { userAPI } from '../../features/users/services/userService';
+import SkillsManager from '../../features/skills/components/SkillsManager';
+import ErrorMessage from '../../shared/components/ErrorMessage';
 
 const ProfilePage = () => {
     const { user, updateUser } = useAuth();
+    const toast = useToast();
     const [formData, setFormData] = useState({
         name: '',
         phoneNumber: '',
@@ -19,8 +22,7 @@ const ProfilePage = () => {
     const [locationData, setLocationData] = useState({ city: '', state: '' });
     const [pincodeError, setPincodeError] = useState('');
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState('');
-    const [messageType, setMessageType] = useState(''); // 'success' or 'error'
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         if (user) {
@@ -44,6 +46,7 @@ const ProfilePage = () => {
             ...formData,
             [e.target.name]: value
         });
+        if (error) setError(null);
     };
 
     const handlePincodeChange = async (e) => {
@@ -64,11 +67,14 @@ const ProfilePage = () => {
                         city: District,
                         state: State
                     }));
+                    toast.success('Location details fetched');
                 } else {
                     setPincodeError('Invalid Pincode.');
+                    toast.error('Invalid PIN code');
                 }
-            } catch (error) {
-                setPincodeError('Could not fetch location.');
+            } catch (err) {
+                setPincodeError('Could not fetch location. Check your internet connection.');
+                toast.error('Could not fetch location details');
             }
         }
     };
@@ -76,8 +82,7 @@ const ProfilePage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        setMessage('');
-        setMessageType('');
+        setError(null);
 
         try {
             const finalUserData = {
@@ -85,17 +90,20 @@ const ProfilePage = () => {
                 ...locationData
             };
             const response = await userAPI.update(user.userId, finalUserData);
-            
+
             // Update the user in context
             if (updateUser) {
                 updateUser(response.data);
             }
-            
-            setMessage('Profile updated successfully!');
-            setMessageType('success');
-        } catch (error) {
-            setMessage(error.response?.data?.error || 'Failed to update profile. Please try again.');
-            setMessageType('error');
+
+            toast.success('Profile updated successfully!');
+        } catch (err) {
+            setError(err);
+            if (err.isNetworkError) {
+                toast.error('No internet connection. Please try again.');
+            } else {
+                toast.error(err.response?.data?.error || 'Failed to update profile');
+            }
         } finally {
             setLoading(false);
         }
@@ -279,11 +287,7 @@ const ProfilePage = () => {
                             </div>
                         )}
 
-                        {message && (
-                            <div className={`form-message ${messageType}`}>
-                                {message}
-                            </div>
-                        )}
+                        {error && <ErrorMessage error={error} type="inline" />}
 
                         <div className="form-actions">
                             <button type="submit" className="btn-primary" disabled={loading}>

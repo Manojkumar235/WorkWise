@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
+import NetworkStatus from './shared/components/NetworkStatus';
 
 // Import Pages (use correct casing for paths)
 import HomePage from './Pages/HomePage';
@@ -13,9 +14,16 @@ import PostJobPage from './Pages/Dashboard/PostJobPage';
 import ProfilePage from './Pages/Dashboard/ProfilePage';
 import MyJobsPage from './Pages/Dashboard/MyJobsPage';
 import WorkerSearchPage from './Pages/Dashboard/WorkerSearchPage';
-import JobDetailPage from './components/Jobs/JobDetailPage';
+import JobDetailPage from './Pages/Dashboard/JobDetailPage';
 import AuthLayout from './components/Layout/AuthLayout';
 import OnboardingPage from './Pages/OnboardingPage';
+
+// Landing Site Pages
+import AboutPage from './Pages/Landing/AboutPage';
+import FAQPage from './Pages/Landing/FAQPage';
+import ContactPage from './Pages/Landing/ContactPage';
+import PrivacyPage from './Pages/Landing/PrivacyPage';
+import TermsPage from './Pages/Landing/TermsPage';
 
 import './App.css';
 
@@ -40,9 +48,15 @@ function App() {
 
     return (
         <Router>
+            <NetworkStatus />
             <Routes>
-                {/* Public Routes */}
+                {/* Public Landing Site Routes */}
                 <Route path="/" element={<HomePage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/faq" element={<FAQPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/privacy" element={<PrivacyPage />} />
+                <Route path="/terms" element={<TermsPage />} />
 
                 {/* Authentication Routes with the new Layout */}
                 <Route element={<AuthLayout />}>

@@ -1,9 +1,12 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
+import JobRecommendations from '../../features/ai/components/JobRecommendations';
 
 const DashboardHome = () => {
     const { user } = useAuth();
+    
+    const isWorker = user?.userType === 'WORKER' || user?.userType === 'BOTH';
 
     const getUserTypeIcon = (type) => {
         switch (type) {
@@ -45,6 +48,12 @@ const DashboardHome = () => {
                          <Link to="/dashboard/my-jobs" className="action-btn">💼 View My Jobs</Link>
                     </div>
                 </div>
+
+                {isWorker && (
+                    <div className="dashboard-recommendations-section">
+                        <JobRecommendations user={user} />
+                    </div>
+                )}
             </div>
         </div>
     );

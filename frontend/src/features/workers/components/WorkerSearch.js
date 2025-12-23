@@ -1,0 +1,316 @@
+import React, { useState, useEffect } from 'react';
+import { useWorkers } from '../hooks/useWorkers';
+import { useToast } from '../../../context/ToastContext';
+import workerAPI from '../services/workerService';
+import LoadingSpinner from '../../../shared/components/LoadingSpinner';
+import ErrorMessage from '../../../shared/components/ErrorMessage';
+import EmptyState from '../../../shared/components/EmptyState';
+
+const WorkerSearch = ({ onWorkerSelect }) => {
+  const { workers, loading, error, fetchWorkersByType, fetchNearbyWorkers, setWorkers } = useWorkers();
+  const toast = useToast();
+  const [searchFilters, setSearchFilters] = useState({
+    skill: '',
+    city: '',
+    state: '',
+    category: '',
+    minRating: '',
+    isSeasonal: false,
+    isAvailable: true
+  });
+  const [searching, setSearching] = useState(false);
+
+  useEffect(() => {
+    fetchWorkersByType('WORKER');
+  }, [fetchWorkersByType]);
+
+  const handleSearch = async () => {
+    setSearching(true);
+    try {
+      let filteredWorkers = [];
+
+      if (searchFilters.skill) {
+        const response = await workerAPI.getWorkersBySkill(searchFilters.skill);
+        filteredWorkers = Array.isArray(response.data) ? response.data : [];
+      } else {
+        const response = await workerAPI.getByType('WORKER');
+        filteredWorkers = Array.isArray(response.data) ? response.data : [];
+      }
+
+      // Apply additional filters
+      if (searchFilters.city) {
+        filteredWorkers = filteredWorkers.filter(w =>
+          w.city && w.city.toLowerCase().includes(searchFilters.city.toLowerCase())
+        );
+      }
+
+      if (searchFilters.state) {
+        filteredWorkers = filteredWorkers.filter(w =>
+          w.state && w.state.toLowerCase().includes(searchFilters.state.toLowerCase())
+        );
+      }
+
+      if (searchFilters.minRating) {
+        filteredWorkers = filteredWorkers.filter(w =>
+          w.trustScore && w.trustScore >= parseFloat(searchFilters.minRating)
+        );
+      }
+
+      if (searchFilters.isSeasonal) {
+        filteredWorkers = filteredWorkers.filter(w => w.isSeasonalWorker === true);
+      }
+
+      if (searchFilters.isAvailable) {
+        filteredWorkers = filteredWorkers.filter(w =>
+          w.availabilityStatus !== false
+        );
+      }
+
+      setWorkers(filteredWorkers);
+      toast.success(`Found ${filteredWorkers.length} worker${filteredWorkers.length !== 1 ? 's' : ''}`);
+    } catch (err) {
+      if (err.isNetworkError) {
+        toast.error('No internet connection. Please try again.');
+      } else {
+        toast.error('Search failed. Please try again.');
+      }
+    } finally {
+      setSearching(false);
+    }
+  };
+
+  const handleFilterChange = (e) => {
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setSearchFilters({
+      ...searchFilters,
+      [e.target.name]: value
+    });
+  };
+
+  const getCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      toast.error('Location services not available on this device');
+      return;
+    }
+
+    toast.info('Getting your location...');
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        fetchNearbyWorkers(position.coords.latitude, position.coords.longitude);
+        toast.success('Showing workers near you');
+      },
+      (err) => {
+        if (err.code === err.PERMISSION_DENIED) {
+          toast.error('Location permission denied. Please enable location access.');
+        } else {
+          toast.error('Could not get your location. Please try again.');
+        }
+      }
+    );
+  };
+
+  const getRatingStars = (rating) => {
+    if (!rating) return 'No rating';
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    return '⭐'.repeat(fullStars) + (hasHalfStar ? '½' : '') + ` ${rating.toFixed(1)}`;
+  };
+
+  return (
+    <div className="worker-search-container">
+      <div className="search-header">
+        <h2>Find Workers</h2>
+        <p>Discover skilled workers in your area</p>
+      </div>
+
+      {/* Search Filters */}
+      <div className="search-filters">
+        <div className="filter-row">
+          <div className="filter-group">
+            <input
+              type="text"
+              name="skill"
+              value={searchFilters.skill}
+              onChange={handleFilterChange}
+              placeholder="Search by skill (e.g., farming, electrical)"
+            />
+          </div>
+
+          <div className="filter-group">
+            <input
+              type="text"
+              name="city"
+              value={searchFilters.city}
+              onChange={handleFilterChange}
+              placeholder="City"
+            />
+          </div>
+
+          <div className="filter-group">
+            <input
+              type="text"
+              name="state"
+              value={searchFilters.state}
+              onChange={handleFilterChange}
+              placeholder="State"
+            />
+          </div>
+        </div>
+
+        <div className="filter-row">
+          <div className="filter-group">
+            <input
+              type="number"
+              name="minRating"
+              value={searchFilters.minRating}
+              onChange={handleFilterChange}
+              placeholder="Min Rating (0-5)"
+              min="0"
+              max="5"
+              step="0.1"
+            />
+          </div>
+
+          <div className="filter-group checkbox-filters">
+            <label>
+              <input
+                type="checkbox"
+                name="isAvailable"
+                checked={searchFilters.isAvailable}
+                onChange={handleFilterChange}
+              />
+              Available Only
+            </label>
+
+            <label>
+              <input
+                type="checkbox"
+                name="isSeasonal"
+                checked={searchFilters.isSeasonal}
+                onChange={handleFilterChange}
+              />
+              Seasonal Workers
+            </label>
+          </div>
+        </div>
+
+        <div className="filter-actions">
+          <button onClick={handleSearch} className="btn-search" disabled={searching}>
+            {searching ? 'Searching...' : '🔍 Search Workers'}
+          </button>
+          <button onClick={getCurrentLocation} className="btn-location">
+            📍 Workers Near Me
+          </button>
+          <button onClick={() => fetchWorkersByType('WORKER')} className="btn-clear">
+            Clear Filters
+          </button>
+        </div>
+      </div>
+
+      {error && <ErrorMessage error={error} onRetry={() => fetchWorkersByType('WORKER')} />}
+
+      {/* Workers List */}
+      <div className="workers-container">
+        {loading ? (
+          <LoadingSpinner size="large" text="Searching for workers..." />
+        ) : error ? null : workers.length === 0 ? (
+          <EmptyState
+            icon="👷"
+            title="No Workers Found"
+            message="Try adjusting your search filters or check back later."
+            actionText="Clear Filters"
+            onAction={() => fetchWorkersByType('WORKER')}
+          />
+        ) : (
+          <div className="workers-grid">
+            {workers.map(worker => (
+              <div key={worker.id} className="worker-card">
+                <div className="worker-card-header">
+                  <div className="worker-avatar">
+                    <div className="avatar-placeholder-small">
+                      {worker.userType === 'WORKER' ? '👷' : '🤝'}
+                    </div>
+                  </div>
+                  <div className="worker-basic-info">
+                    <h3 className="worker-name">{worker.name}</h3>
+                    {worker.trustScore && (
+                      <div className="worker-rating">
+                        {getRatingStars(worker.trustScore)}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="worker-card-body">
+                  <div className="worker-info">
+                    {worker.email && (
+                      <div className="info-item">
+                        <span className="icon">📧</span>
+                        <span>{worker.email}</span>
+                      </div>
+                    )}
+
+                    {worker.phoneNumber && (
+                      <div className="info-item">
+                        <span className="icon">📞</span>
+                        <span>{worker.phoneNumber}</span>
+                      </div>
+                    )}
+
+                    {worker.city && (
+                      <div className="info-item">
+                        <span className="icon">📍</span>
+                        <span>{worker.city}, {worker.state}</span>
+                      </div>
+                    )}
+
+                    {worker.bio && (
+                      <div className="worker-bio">
+                        <p>{worker.bio.length > 100
+                          ? `${worker.bio.substring(0, 100)}...`
+                          : worker.bio}
+                        </p>
+                      </div>
+                    )}
+
+                    {worker.availabilityStatus !== false && (
+                      <div className="availability-badge available">
+                        ✅ Available
+                      </div>
+                    )}
+
+                    {worker.isSeasonalWorker && (
+                      <div className="seasonal-badge">
+                        🌾 Seasonal Worker
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="worker-card-footer">
+                  <button
+                    onClick={() => onWorkerSelect && onWorkerSelect(worker)}
+                    className="btn-view-profile"
+                  >
+                    View Profile
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Results Summary */}
+      {!loading && workers.length > 0 && (
+        <div className="results-summary">
+          <p>Showing {workers.length} worker{workers.length !== 1 ? 's' : ''}</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default WorkerSearch;
+
