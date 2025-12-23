@@ -8,11 +8,14 @@ import LoginPage from './Pages/LoginPage';
 import RegisterPage from './Pages/RegisterPage';
 import DashboardLayout from './Pages/Dashboard/DashboardLayout';
 import DashboardHome from './Pages/Dashboard/DashboardHome';
-//import JobSearchPage from './pages/Dashboard/JobSearchPage';
-//import PostJobPage from './pages/Dashboard/PostJobPage';
-//import ProfilePage from './pages/Dashboard/ProfilePage';
-//import MyJobsPage from './pages/Dashboard/MyJobsPage';
+import JobSearchPage from './Pages/Dashboard/JobSearchPage';
+import PostJobPage from './Pages/Dashboard/PostJobPage';
+import ProfilePage from './Pages/Dashboard/ProfilePage';
+import MyJobsPage from './Pages/Dashboard/MyJobsPage';
+import WorkerSearchPage from './Pages/Dashboard/WorkerSearchPage';
+import JobDetailPage from './components/Jobs/JobDetailPage';
 import AuthLayout from './components/Layout/AuthLayout';
+import OnboardingPage from './Pages/OnboardingPage';
 
 import './App.css';
 
@@ -47,11 +50,19 @@ function App() {
                     <Route path="/register" element={user ? <Navigate to="/dashboard" /> : <RegisterPage />} />
                 </Route>
 
+                <Route path="/onboarding" element={user ? <OnboardingPage /> : <Navigate to="/login" />} />
+
                 {/* Protected Dashboard Routes */}
                 <Route element={<ProtectedRoute />}>
                     <Route path="/dashboard" element={<DashboardLayout />}>
                          <Route index element={<Navigate to="home" replace />} />
                          <Route path="home" element={<DashboardHome />} />
+                         <Route path="find-jobs" element={<JobSearchPage />} />
+                         <Route path="post-job" element={<PostJobPage />} />
+                         <Route path="my-jobs" element={<MyJobsPage />} />
+                         <Route path="profile" element={<ProfilePage />} />
+                         <Route path="find-workers" element={<WorkerSearchPage />} />
+                         <Route path="jobs/:id" element={<JobDetailPage />} />
                     </Route>
                 </Route>
 

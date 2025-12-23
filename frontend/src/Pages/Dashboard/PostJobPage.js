@@ -1,22 +1,30 @@
 import React from 'react';
-import PostJob from '../../components/Jobs/PostJob';
 import { useNavigate } from 'react-router-dom';
+import PostJob from '../../components/Jobs/PostJob';
 
 const PostJobPage = () => {
     const navigate = useNavigate();
 
-    const handleJobPosted = () => {
-        alert("Job Posted Successfully!");
-        navigate('/dashboard/my-jobs');
+    const handleJobPosted = (jobData) => {
+        // Navigate to the job detail page or my jobs
+        if (jobData.jobId) {
+            navigate(`/dashboard/jobs/${jobData.jobId}`);
+        } else {
+            navigate('/dashboard/my-jobs');
+        }
+    };
+
+    const handleCancel = () => {
+        navigate('/dashboard/home');
     };
 
     return (
         <div className="dashboard-page">
-             <header className="page-header">
+            <header className="page-header">
                 <h1>Post a New Job</h1>
-                <p>Fill out the details below to find the perfect worker for your needs.</p>
+                <p>Fill out the form below to post a job and find the right workers.</p>
             </header>
-            <PostJob onJobPosted={handleJobPosted} onCancel={() => navigate('/dashboard/home')} />
+            <PostJob onJobPosted={handleJobPosted} onCancel={handleCancel} />
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { authAPI } from '../../services/api';
 import { useLanguage } from '../../context/LanguageContext';
+import Button from '../UI/Button';
 
 const Login = ({ onLogin, switchToRegister }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -64,9 +65,9 @@ const Login = ({ onLogin, switchToRegister }) => {
                 />
             </div>
 
-            <button type="submit" disabled={loading} className="btn-primary full-width">
+            <Button type="submit" disabled={loading} block>
                 {loading ? 'Logging in...' : translations.login}
-            </button>
+            </Button>
         </form>
 
         <div className="auth-switch-alt">

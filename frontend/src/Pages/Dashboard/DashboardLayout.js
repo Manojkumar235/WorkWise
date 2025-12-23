@@ -24,6 +24,7 @@ const DashboardLayout = () => {
                          <NavLink to="/dashboard/home" className="sidebar-link">Dashboard</NavLink>
                          {isWorker && <NavLink to="/dashboard/find-jobs" className="sidebar-link">Find Jobs</NavLink>}
                          {isHirer && <NavLink to="/dashboard/post-job" className="sidebar-link">Post a Job</NavLink>}
+                         {isHirer && <NavLink to="/dashboard/find-workers" className="sidebar-link">Find Workers</NavLink>}
                          <NavLink to="/dashboard/my-jobs" className="sidebar-link">My Jobs</NavLink>
                          <NavLink to="/dashboard/profile" className="sidebar-link">My Profile</NavLink>
                      </nav>
