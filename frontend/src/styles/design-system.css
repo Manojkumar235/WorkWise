@@ -1,0 +1,59 @@
+/* === Design System === */
+
+:root {
+  --color-primary: #667eea;
+  --color-primary-dark: #4458a3;
+  --color-accent: #f59e42;
+  --color-danger: #e94f4f;
+  --color-success: #2ecc71;
+  --color-warning: #f1c40f;
+
+  --color-bg: #f7f9fb;
+  --color-card: #ffffff;
+  --color-border: #e3e9f0;
+  --color-text: #22223b;
+  --color-text-light: #6c6f7f;
+  --color-disabled: #bbbcc3;
+  --color-shadow: rgba(30,34,90,0.05);
+
+  --radius: 10px;
+  --radius-sm: 6px;
+
+  --font: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  --font-size: 1rem;
+  --font-title: 2rem;
+  --font-button: 1rem;
+  --line-height: 1.5;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+}
+
+/* Utility classes */
+.ds-shadow {
+  box-shadow: 0 3px 24px var(--color-shadow);
+}
+.ds-radius {
+  border-radius: var(--radius);
+}
+.ds-sep {
+  border-bottom: 1px solid var(--color-border);
+}
+.ds-card {
+  background: var(--color-card);
+  border-radius: var(--radius);
+  box-shadow: 0 3px 24px var(--color-shadow);
+  border: 1px solid var(--color-border);
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-top: 0;
+}
