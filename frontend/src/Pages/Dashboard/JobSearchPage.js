@@ -1,11 +1,21 @@
-import React from 'react';
-import JobSearch from '../../components/Jobs/JobSearch';
+import React, { useState } from 'react';
+import JobSearch from '../../features/jobs/components/JobSearch';
+import JobDetailModal from '../../features/jobs/components/JobDetailModal';
 
 const JobSearchPage = () => {
+    const [selectedJobId, setSelectedJobId] = useState(null);
+
     const handleJobSelect = (job) => {
-        // modal to show job details
-        console.log("Selected Job:", job);
-        alert(`You selected "${job.title}"`);
+        setSelectedJobId(job.id);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedJobId(null);
+    };
+
+    const handleJobUpdated = () => {
+        // Job was updated, could refresh the list if needed
+        setSelectedJobId(null);
     };
 
     return (
@@ -15,6 +25,13 @@ const JobSearchPage = () => {
                 <p>Search and filter jobs based on your skills and location.</p>
             </header>
             <JobSearch onJobSelect={handleJobSelect} />
+            {selectedJobId && (
+                <JobDetailModal 
+                    jobId={selectedJobId} 
+                    onClose={handleCloseModal}
+                    onJobUpdated={handleJobUpdated}
+                />
+            )}
         </div>
     );
 };

@@ -1,0 +1,79 @@
+/* === Design System Button Styles === */
+.ds-btn {
+  border: none;
+  outline: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: var(--font-button);
+  padding: 12px 24px;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 2px 8px var(--color-shadow);
+  margin: 0;
+}
+
+.ds-btn:disabled {
+  background: var(--color-disabled);
+  color: #fff;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.ds-btn-primary {
+  background: var(--color-primary);
+}
+.ds-btn-primary:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+.ds-btn-accent {
+  background: var(--color-accent);
+}
+.ds-btn-accent:hover:not(:disabled) {
+  background: #e67e22;
+}
+
+.ds-btn-danger {
+  background: var(--color-danger);
+}
+.ds-btn-danger:hover:not(:disabled) {
+  background: #b93232;
+}
+
+.ds-btn-success {
+  background: var(--color-success);
+}
+.ds-btn-success:hover:not(:disabled) {
+  background: #259b57;
+}
+
+.ds-btn-outline {
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+.ds-btn-outline:hover:not(:disabled) {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.ds-btn-block {
+  display: block;
+  width: 100%;
+}
+
+.ds-btn-sm {
+  padding: 7px 18px;
+  font-size: 0.95rem;
+}
+.ds-btn-md {
+  font-size: 1rem;
+}
+.ds-btn-lg {
+  padding: 18px 32px;
+  font-size: 1.2rem;
+}
+

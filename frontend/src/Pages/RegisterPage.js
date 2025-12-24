@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import Register from '../components/Auth/Register';
+import Register from '../features/auth/components/Register';
 
 const RegisterPage = () => {
     const navigate = useNavigate();
@@ -12,12 +12,12 @@ const RegisterPage = () => {
         // We update the auth context and redirect
         const fullUserData = { ...userData, token: localStorage.getItem('workwise_token') };
         login(fullUserData);
-        navigate('/dashboard');
+        navigate('/Onboarding');
     };
 
     return (
         <div className="auth-page">
-            {/* The Register component is  existing form from src/components/Auth/Register.js */}
+            {/* The Register component is existing form from src/components/Auth/Register.js */}
             <Register onRegister={handleRegisterSuccess} switchToLogin={() => navigate('/login')} />
         </div>
     );

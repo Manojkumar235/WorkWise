@@ -1,0 +1,23 @@
+/* Design System Modal Styles */
+.ds-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(30,34,90,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.ds-modal {
+  background: var(--color-card);
+  border-radius: var(--radius);
+  min-width: 320px;
+  max-width: 480px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(30,34,90,0.18);
+  position: relative;
+  border: 1px solid var(--color-border);
+  transition: all 0.2s;
+}
+

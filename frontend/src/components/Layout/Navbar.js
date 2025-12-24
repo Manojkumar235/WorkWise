@@ -10,8 +10,17 @@ const Navbar = () => {
     const { theme, toggleTheme } = useTheme();
     const [isMenuOpen, setMenuOpen] = useState(false);
 
+    const landingLinks = (
+        <>
+            <NavLink to="/about" className="nav-link">About</NavLink>
+            <NavLink to="/faq" className="nav-link">FAQ</NavLink>
+            <NavLink to="/contact" className="nav-link">Contact</NavLink>
+        </>
+    );
+
     const loggedOutLinks = (
         <>
+            {landingLinks}
             <NavLink to="/login" className="nav-link">{translations.login}</NavLink>
             <Link to="/register" className="nav-button-primary">{translations.register}</Link>
         </>

@@ -1,0 +1,281 @@
+
+    Directory: D:\WorkWise\backend
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12-11-2025     20:19                .github
+d-----        10-11-2025     20:08                .mvn
+d-----        10-11-2025     20:08                src
+d-----        12-11-2025     22:58                target
+-a----        10-11-2025     20:08             40 .gitattributes
+-a----        10-11-2025     20:08            427 .gitignore
+-a----        10-11-2025     20:08          11790 mvnw
+-a----        10-11-2025     20:08           8481 mvnw.cmd
+-a----        12-11-2025     22:32           3515 pom.xml
+    Directory: D:\WorkWise\backend\.github
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12-11-2025     22:29                java-upgrade
+    Directory: D:\WorkWise\backend\.github\java-upgrade
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12-11-2025     20:19                20251112144904
+d-----        12-11-2025     22:29                20251112165939
+-a----        12-11-2025     20:19              3 .gitignore
+    Directory: D:\WorkWise\backend\.github\java-upgrade\20251112144904
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12-11-2025     20:19                logs
+-a----        12-11-2025     20:20            426 progress.md
+    Directory: D:\WorkWise\backend\.github\java-upgrade\20251112144904\logs
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        12-11-2025     20:20           2003 0.log
+    Directory: D:\WorkWise\backend\.github\java-upgrade\20251112165939
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12-11-2025     22:29                logs
+-a----        12-11-2025     22:30            426 progress.md
+    Directory: D:\WorkWise\backend\.github\java-upgrade\20251112165939\logs
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        12-11-2025     22:30           2606 0.log
+    Directory: D:\WorkWise\backend\.mvn
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        10-11-2025     20:08                wrapper
+    Directory: D:\WorkWise\backend\.mvn\wrapper
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        10-11-2025     20:08            149 maven-wrapper.properties
+    Directory: D:\WorkWise\backend\src
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        10-11-2025     20:08                main
+d-----        10-11-2025     20:08                test
+    Directory: D:\WorkWise\backend\src\main
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        10-11-2025     20:08                java
+d-----        10-11-2025     20:08                resources
+    Directory: D:\WorkWise\backend\src\main\java
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        10-11-2025     20:08                com
+    Directory: D:\WorkWise\backend\src\main\java\com
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        10-11-2025     20:08                workwise
+    Directory: D:\WorkWise\backend\src\main\java\com\workwise
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        10-11-2025     20:08                config
+d-----        10-11-2025     20:08                controller
+d-----        10-11-2025     20:08                model
+d-----        10-11-2025     20:08                repository
+d-----        10-11-2025     20:08                security
+d-----        10-11-2025     20:08                service
+-a----        10-11-2025     20:08            388 WorkwiseApplication.java
+    Directory: D:\WorkWise\backend\src\main\java\com\workwise\config
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        10-11-2025     20:08            925 WebConfig.java
+    Directory: D:\WorkWise\backend\src\main\java\com\workwise\controller
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        10-11-2025     20:08           4591 AuthController.java
+-a----        10-11-2025     20:08          16546 JobController.java
+-a----        10-11-2025     20:08           3554 MatchingController.java
+-a----        10-11-2025     20:08           5362 RatingController.java
+-a----        10-11-2025     20:08           9224 SkillController.java
+-a----        10-11-2025     20:08           9142 UserController.java
+    Directory: D:\WorkWise\backend\src\main\java\com\workwise\model
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        12-11-2025     22:48           4955 Job.java
+-a----        10-11-2025     20:08            712 JobStatus.java
+-a----        10-11-2025     20:08            554 PaymentType.java
+-a----        10-11-2025     20:08           1528 Rating.java
+-a----        12-11-2025     22:48           2871 Skill.java
+-a----        10-11-2025     20:08           2221 SkillCategory.java
+-a----        12-11-2025     22:48           6947 User.java
+-a----        10-11-2025     20:08            393 UserType.java
+    Directory: D:\WorkWise\backend\src\main\java\com\workwise\repository
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        10-11-2025     20:08           4168 JobRepository.java
+-a----        10-11-2025     20:08           1665 RatingRepository.java
+-a----        10-11-2025     20:08           2290 SkillRepository.java
+-a----        10-11-2025     20:08           3322 UserRepository.java
+    Directory: D:\WorkWise\backend\src\main\java\com\workwise\security
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        10-11-2025     20:08           2324 AuthTokenFilter.java
+-a----        10-11-2025     20:08           2052 JwtUtils.java
+-a----        10-11-2025     20:08           2618 UserDetailsImpl.java
+-a----        10-11-2025     20:08            994 UserDetailsServiceImpl.java
+-a----        10-11-2025     20:08           4555 WebSecurityConfig.java
+    Directory: D:\WorkWise\backend\src\main\java\com\workwise\service
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        10-11-2025     20:08           2790 AuthService.java
+-a----        10-11-2025     20:08          11861 MatchingService.java
+-a----        10-11-2025     20:08           3603 RatingService.java
+    Directory: D:\WorkWise\backend\src\main\resources
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        12-11-2025     22:52            845 application.properties
+    Directory: D:\WorkWise\backend\src\test
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        10-11-2025     20:08                java
+    Directory: D:\WorkWise\backend\src\test\java
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        10-11-2025     20:08                com
+    Directory: D:\WorkWise\backend\src\test\java\com
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        10-11-2025     20:08                workwise
+    Directory: D:\WorkWise\backend\src\test\java\com\workwise
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        10-11-2025     20:08            219 WorkwiseApplicationTests.java
+    Directory: D:\WorkWise\backend\target
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12-11-2025     22:58                classes
+d-----        12-11-2025     22:58                generated-sources
+d-----        12-11-2025     22:58                generated-test-sources
+d-----        12-11-2025     21:48                maven-archiver
+d-----        12-11-2025     21:48                maven-status
+d-----        12-11-2025     22:58                test-classes
+-a----        12-11-2025     22:48       59373503 workwise-backend-1.0.0.jar
+-a----        12-11-2025     22:48          82851 workwise-backend-1.0.0.jar.or
+                                                  iginal
+    Directory: D:\WorkWise\backend\target\classes
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12-11-2025     22:58                com
+-a----        12-11-2025     22:58            845 application.properties
+    Directory: D:\WorkWise\backend\target\classes\com
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12-11-2025     22:58                workwise
+    Directory: D:\WorkWise\backend\target\classes\com\workwise
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12-11-2025     22:58                config
+d-----        12-11-2025     22:58                controller
+d-----        12-11-2025     22:58                model
+d-----        12-11-2025     22:58                repository
+d-----        12-11-2025     22:58                security
+d-----        12-11-2025     22:58                service
+-a----        12-11-2025     22:58            929 WorkwiseApplication.class
+    Directory: D:\WorkWise\backend\target\classes\com\workwise\config
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        12-11-2025     22:58           1838 WebConfig$1.class
+-a----        12-11-2025     22:58            743 WebConfig.class
+    Directory: D:\WorkWise\backend\target\classes\com\workwise\controller
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        12-11-2025     22:58            930 AuthController$LoginRequest.c
+                                                  lass
+-a----        12-11-2025     22:58           6244 AuthController.class
+-a----        12-11-2025     22:58          15491 JobController.class
+-a----        12-11-2025     22:58           5258 MatchingController.class
+-a----        12-11-2025     22:58           8194 RatingController.class
+-a----        12-11-2025     22:58          11764 SkillController.class
+-a----        12-11-2025     22:58          11900 UserController.class
+    Directory: D:\WorkWise\backend\target\classes\com\workwise\model
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        12-11-2025     22:58          24982 Job.class
+-a----        12-11-2025     22:58           2071 JobStatus.class
+-a----        12-11-2025     22:58           1831 PaymentType.class
+-a----        12-11-2025     22:58           9447 Rating.class
+-a----        12-11-2025     22:58          13092 Skill.class
+-a----        12-11-2025     22:58           4852 SkillCategory.class
+-a----        12-11-2025     22:58          18924 User.class
+-a----        12-11-2025     22:58           1476 UserType.class
+    Directory: D:\WorkWise\backend\target\classes\com\workwise\repository
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        12-11-2025     22:58           5210 JobRepository.class
+-a----        12-11-2025     22:58           2132 RatingRepository.class
+-a----        12-11-2025     22:58           3406 SkillRepository.class
+-a----        12-11-2025     22:58           3998 UserRepository.class
+    Directory: D:\WorkWise\backend\target\classes\com\workwise\security
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        12-11-2025     22:58           3650 AuthTokenFilter.class
+-a----        12-11-2025     22:58           4364 JwtUtils.class
+-a----        12-11-2025     22:58           3751 UserDetailsImpl.class
+-a----        12-11-2025     22:58           2636 UserDetailsServiceImpl.class
+-a----        12-11-2025     22:58           8451 WebSecurityConfig.class
+    Directory: D:\WorkWise\backend\target\classes\com\workwise\service
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        12-11-2025     22:58           4127 AuthService.class
+-a----        12-11-2025     22:58           1600 MatchingService$JobRecommenda
+                                                  tion.class
+-a----        12-11-2025     22:58           1606 MatchingService$MatchResult.c
+                                                  lass
+-a----        12-11-2025     22:58           8301 MatchingService.class
+-a----        12-11-2025     22:58           4201 RatingService.class
+    Directory: D:\WorkWise\backend\target\generated-sources
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12-11-2025     22:58                annotations
+    Directory: D:\WorkWise\backend\target\generated-test-sources
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12-11-2025     22:58                test-annotations
+    Directory: D:\WorkWise\backend\target\maven-archiver
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        12-11-2025     21:48             66 pom.properties
+    Directory: D:\WorkWise\backend\target\maven-status
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12-11-2025     21:48                maven-compiler-plugin
+    Directory: D:\WorkWise\backend\target\maven-status\maven-compiler-plugin
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12-11-2025     21:48                compile
+d-----        12-11-2025     21:48                testCompile
+    Directory:
+    D:\WorkWise\backend\target\maven-status\maven-compiler-plugin\compile
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12-11-2025     21:48                default-compile
+    Directory: D:\WorkWise\backend\target\maven-status\maven-compiler-plugin\co
+    mpile\default-compile
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        12-11-2025     21:48           1357 createdFiles.lst
+-a----        23-12-2025     10:48           2069 inputFiles.lst
+    Directory:
+    D:\WorkWise\backend\target\maven-status\maven-compiler-plugin\testCompile
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12-11-2025     21:48                default-testCompile
+    Directory: D:\WorkWise\backend\target\maven-status\maven-compiler-plugin\te
+    stCompile\default-testCompile
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        12-11-2025     22:48             44 createdFiles.lst
+-a----        23-12-2025     10:48             77 inputFiles.lst
+    Directory: D:\WorkWise\backend\target\test-classes
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12-11-2025     22:58                com
+    Directory: D:\WorkWise\backend\target\test-classes\com
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        12-11-2025     22:58                workwise
+    Directory: D:\WorkWise\backend\target\test-classes\com\workwise
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        12-11-2025     22:58            535 WorkwiseApplicationTests.clas
+                                                  s
